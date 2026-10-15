@@ -1,0 +1,175 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-display: 'Syne', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --color-accent: #c5a059;
+    --color-accent-hover: #b8934b;
+    --color-surface-dark: #0c0d0e;
+    --color-surface-card: #141618;
+    --color-surface-elevated: #1a1c1f;
+    --color-border-subtle: rgba(255, 255, 255, 0.08);
+    --color-border-hover: rgba(197, 160, 89, 0.3);
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--color-surface-dark);
+    color: #e4e4e7;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .font-display {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+}
+
+/* Custom subtle glass and border helpers */
+.border-subtle {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.border-subtle-hover:hover {
+  border-color: rgba(197, 160, 89, 0.35);
+}
+
+.bg-glass {
+  background-color: rgba(18, 20, 22, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Subtle elevation / level-up micro-interactions */
+.hover-lift {
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@media (hover: hover) {
+  .hover-lift:hover {
+    transform: translateY(-2px);
+  }
+}
+
+/* Button & Link Micro-Interactions */
+.btn-primary-interaction {
+  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1), background-color 260ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 260ms cubic-bezier(0.22, 1, 0.36, 1), filter 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+@media (hover: hover) {
+  .btn-primary-interaction:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.05);
+  }
+}
+.btn-primary-interaction:active {
+  transform: scale(0.98);
+}
+
+.btn-secondary-interaction {
+  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1), background-color 260ms cubic-bezier(0.22, 1, 0.36, 1), border-color 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+@media (hover: hover) {
+  .btn-secondary-interaction:hover {
+    transform: translateY(-2px);
+  }
+}
+.btn-secondary-interaction:active {
+  transform: scale(0.98);
+}
+
+/* Smooth arrow micro-slide on button and text link hover */
+@media (hover: hover) {
+  .group:hover .group-arrow-hover,
+  .btn-arrow-trigger:hover .group-arrow-hover {
+    transform: translateX(3.5px);
+  }
+}
+.group-arrow-hover {
+  transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Card subtle lift on desktop */
+@media (hover: hover) {
+  .card-premium-hover {
+    transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1), border-color 320ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 320ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .card-premium-hover:hover {
+    transform: translateY(-5px);
+  }
+}
+
+/* Subtle image curtain wipe on initial reveal */
+@keyframes curtainSlideUp {
+  0% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+}
+.curtain-reveal {
+  animation: curtainSlideUp 700ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Modal fade-in and scale animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes modalEnter {
+  from {
+    opacity: 0;
+    transform: scale(0.975) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+.animate-fadeIn {
+  animation: fadeIn 220ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.animate-modalEnter {
+  animation: modalEnter 260ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Accessibility: prefers-reduced-motion overrides */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+    transform: none !important;
+  }
+  .curtain-reveal {
+    display: none !important;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0c0d0e;
+}
+::-webkit-scrollbar-thumb {
+  background: #23262a;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #33383f;
+}
